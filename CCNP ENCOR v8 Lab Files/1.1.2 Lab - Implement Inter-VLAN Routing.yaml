@@ -1,0 +1,316 @@
+lab:
+  description: ''
+  notes: |-
+    Interfaces numbering:
+
+    R1, R3
+
+    G0/0/1 -> G0/1
+
+    S0/1/1 -> G0/0
+
+    D1, D2
+
+    G1/0/11 -> G0/1
+
+    G1/0/23 -> G1/1
+
+    G1/0/24 -> G1/2
+
+    show sdm prefer command is not implemented
+
+    Linux machines credentials: cisco\cisco
+
+    IP configuration on Linux machines:
+
+    sudo ip a add [ipv4_address] dev eth0
+
+    sudo ip a add [ipv6_address] dev eth0
+
+    sudo ip route add default via [ipv4_gateway]
+
+    sudo ip -6 route add default via [ipv6_gateway]
+  timestamp: 1589549084.4400284
+  title: 1.1.2 Lab - Implement Inter-VLAN Routing
+  version: 0.0.3
+nodes:
+  - id: n2
+    label: D1
+    node_definition: iosvl2
+    x: -450
+    y: 0
+    configuration: |-
+      no ip domain lookup
+      hostname D1
+      line con 0
+       exec-timeout 0 0
+       logging synchronous
+       exit
+      banner motd # This is D1, Inter-VLAN Routing Lab #
+      interface range g0/0, g0/2-3, g1/0
+       shutdown
+    image_definition: iosvl2-2019
+    tags: []
+    interfaces:
+      - id: i0
+        label: Loopback0
+        type: loopback
+      - id: i1
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i2
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+      - id: i3
+        slot: 2
+        label: GigabitEthernet0/2
+        type: physical
+      - id: i4
+        slot: 3
+        label: GigabitEthernet0/3
+        type: physical
+      - id: i5
+        slot: 4
+        label: GigabitEthernet1/0
+        type: physical
+      - id: i6
+        slot: 5
+        label: GigabitEthernet1/1
+        type: physical
+      - id: i7
+        slot: 6
+        label: GigabitEthernet1/2
+        type: physical
+  - id: n3
+    label: D2
+    node_definition: iosvl2
+    x: -150
+    y: 0
+    configuration: |-
+      no ip domain lookup
+      hostname D2
+      line con 0
+       exec-timeout 0 0
+       logging synchronous
+       exit
+      banner motd # This is D2, Inter-VLAN Routing Lab #
+      interface range g0/0, g0/2-3, g1/0
+       shutdown
+    image_definition: iosvl2-2019
+    tags: []
+    interfaces:
+      - id: i0
+        label: Loopback0
+        type: loopback
+      - id: i1
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i2
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+      - id: i3
+        slot: 2
+        label: GigabitEthernet0/2
+        type: physical
+      - id: i4
+        slot: 3
+        label: GigabitEthernet0/3
+        type: physical
+      - id: i5
+        slot: 4
+        label: GigabitEthernet1/0
+        type: physical
+      - id: i6
+        slot: 5
+        label: GigabitEthernet1/1
+        type: physical
+      - id: i7
+        slot: 6
+        label: GigabitEthernet1/2
+        type: physical
+  - id: n4
+    label: PC1
+    node_definition: alpine
+    x: -550
+    y: 100
+    configuration: |-
+      # this is a shell script which will be sourced at boot
+      # if you change the hostname then you need to add a
+      # /etc/hosts entry as well
+      # hostname inserthostname_here
+      # like this:
+      # echo "127.0.0.1   inserthostname_here" >>/etc/hosts
+    image_definition: alpine-3-10-base
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: eth0
+        type: physical
+  - id: n5
+    label: PC2
+    node_definition: alpine
+    x: -350
+    y: 100
+    configuration: |-
+      # this is a shell script which will be sourced at boot
+      # if you change the hostname then you need to add a
+      # /etc/hosts entry as well
+      # hostname inserthostname_here
+      # like this:
+      # echo "127.0.0.1   inserthostname_here" >>/etc/hosts
+    image_definition: alpine-3-10-base
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: eth0
+        type: physical
+  - id: n6
+    label: PC3
+    node_definition: alpine
+    x: -250
+    y: 100
+    configuration: |-
+      # this is a shell script which will be sourced at boot
+      # if you change the hostname then you need to add a
+      # /etc/hosts entry as well
+      # hostname inserthostname_here
+      # like this:
+      # echo "127.0.0.1   inserthostname_here" >>/etc/hosts
+    image_definition: alpine-3-10-base
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: eth0
+        type: physical
+  - id: n7
+    label: PC4
+    node_definition: alpine
+    x: -50
+    y: 100
+    configuration: |-
+      # this is a shell script which will be sourced at boot
+      # if you change the hostname then you need to add a
+      # /etc/hosts entry as well
+      # hostname inserthostname_here
+      # like this:
+      # echo "127.0.0.1   inserthostname_here" >>/etc/hosts
+    image_definition: alpine-3-10-base
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: eth0
+        type: physical
+  - id: n8
+    label: R1
+    node_definition: iosv
+    x: -450
+    y: -150
+    configuration: |-
+      no ip domain lookup
+      hostname R1
+      line con 0
+       exec-timeout 0 0
+       logging synchronous
+       exit
+      banner motd # This is R1, Inter-VLAN Routing Lab #
+    image_definition: iosv-158-3
+    tags: []
+    interfaces:
+      - id: i0
+        label: Loopback0
+        type: loopback
+      - id: i1
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i2
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+      - id: i3
+        slot: 2
+        label: GigabitEthernet0/2
+        type: physical
+      - id: i4
+        slot: 3
+        label: GigabitEthernet0/3
+        type: physical
+  - id: n9
+    label: R3
+    node_definition: iosv
+    x: -150
+    y: -150
+    configuration: |-
+      no ip domain lookup
+      hostname R3
+      line con 0
+       exec-timeout 0 0
+       logging synchronous
+       exit
+      banner motd # This is R3, Inter-VLAN Routing Lab #
+    image_definition: iosv-158-3
+    tags: []
+    interfaces:
+      - id: i0
+        label: Loopback0
+        type: loopback
+      - id: i1
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i2
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+      - id: i3
+        slot: 2
+        label: GigabitEthernet0/2
+        type: physical
+      - id: i4
+        slot: 3
+        label: GigabitEthernet0/3
+        type: physical
+links:
+  - id: l4
+    i1: i0
+    n1: n5
+    i2: i7
+    n2: n2
+  - id: l3
+    i1: i0
+    n1: n4
+    i2: i6
+    n2: n2
+  - id: l5
+    i1: i0
+    n1: n6
+    i2: i6
+    n2: n3
+  - id: l6
+    i1: i0
+    n1: n7
+    i2: i7
+    n2: n3
+  - id: l0
+    i1: i1
+    n1: n8
+    i2: i1
+    n2: n9
+  - id: l1
+    i1: i2
+    n1: n8
+    i2: i2
+    n2: n2
+  - id: l2
+    i1: i2
+    n1: n9
+    i2: i2
+    n2: n3
