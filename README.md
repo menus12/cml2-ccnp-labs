@@ -1,4 +1,4 @@
-# CML2 labs for CCNP
+# CCNP labs for CML2
 Here are some labs from Cisco Networking Academy CCNP ENCOR curriculum.
 These labs were designed to use real hardware equipment so some commands might not be available
 
